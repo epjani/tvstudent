@@ -279,6 +279,34 @@ img.highlight_image.active{
 {
     font-size:13px;
 }
+.right_sidebar_wrapper{
+	float: left;
+	padding-top: 20px;
+	width: 236px;
+	background: blue;
+	padding:12px;
+}
+.sidebar_post img{
+	border:none;
+	width: 86px;
+}
+.sidebar_post a.sidebar-thumb{
+	float: left;
+}
+.sidebar_post .newest_post_title{
+	float: left;
+	margin-left: 10px;
+	width: 139px;
+	overflow: hidden;
+}
+.sidebar_post .newest_post_title a{
+	font-size: 16px;
+	color: #fff;
+}
+.sidebar_post .newest_post_date{	
+	font-size: 10px;
+	color: #fff;
+}
 .singular .entry-header
 {
     width: 100%;
