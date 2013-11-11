@@ -1,5 +1,5 @@
-= TWENTY ELEVEN =
+= TV STUDENT =
 
-* by the WordPress team, http://wordpress.org/
+* by the epjani, https://github.com/epjani
 
-== ABOUT TWENTY ELEVEN ==
+== ABOUT TV STUDENT ==
