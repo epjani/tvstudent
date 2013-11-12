@@ -13,69 +13,64 @@
 		<div class="post_title_breaker"></div>
 	</header><!-- .entry-header -->
 
-	<div class="entry-content">
+	<div class="entry-content" style="width:100%;">
 		<?php setPostViews(get_the_ID()); ?>
-		<?php the_content(); ?>
-		<?php wp_link_pages( array( 'before' => '<div class="page-link"><span>' . __( 'Pages:', 'twentyeleven' ) . '</span>', 'after' => '</div>' ) ); ?>
-	</div><!-- .entry-content -->
+		<div style="width:685px;float:left;margin-right:15px;">
+			<?php the_content(); ?>
+			<?php wp_link_pages( array( 'before' => '<div class="page-link"><span>' . __( 'Pages:', 'twentyeleven' ) . '</span>', 'after' => '</div>' ) ); ?>
+		</div>
+	
     <div class="right_sidebar_wrapper">
-    	<div class="newest collapsed">
-    		<?php 
-    			$args = array( 'posts_per_page' => 4, 'order'=> 'DESC', 'orderby' => 'post_date' );
-				$postslist = get_posts( $args );
-				$i = 0;
-						foreach ($postslist as $post) :
-							$i++;
-							setup_postdata($post);?>
-							<div class="sidebar_post <?php if ($i == 4){echo 'last';} ?>">
-								<?php
-                                    if (has_post_thumbnail()){
-                                        echo '<a href="'; echo get_permalink($post->ID); echo'" class="sidebar-thumb">';the_post_thumbnail('thumbnail');echo '</a>';
-                                    }else{
-									    $attachments = get_children( array(
-									                    'post_parent'    => get_the_ID(),
-									                    'post_type'      => 'attachment',
-									                    'numberposts'    => 1, // show all -1
-									                    'post_status'    => 'inherit',
-									                    'post_mime_type' => 'image',
-									                    'order'          => 'ASC',
-									                    'orderby'        => 'menu_order ASC'
-									                    ) );
-                                        if ($attachments){
-									        foreach ( $attachments as $attachment_id => $attachment ) : ?>
-                                                <a href="<?php echo get_permalink($post->ID) ?>" class="sidebar-thumb">
-									                <img class="post_thumb" src="<?php echo reset(wp_get_attachment_image_src( $attachment_id, 'medium'));?>" width="202" height="164" />
-                                                </a>
-									        <?php endforeach;
-                                        }else{
-                                            echo '<a href="<?php echo get_permalink($post->ID) ?>" class="sidebar-thumb">'; get_video_thumbnail($post->ID); echo '</a>';
-                                        }
-                                   }
-								?>
-								<div class="newest_post_title font-ubuntu">
-									<a href="<?php echo get_permalink($post->ID) ?>"><?php the_title(); ?></a>
-									<div class="newest_post_date font-ubuntu"><?php the_date(); ?></div>
-								</div>
-								
-							</div>
-							<div class="clear"></div>						
-			<?php 
-						endforeach;
-						wp_reset_postdata();
-    		?>
+    	<div class="newest collapsed sidebar-news">
+    		<div class="title" onclick="changeSidebarNews('newest');">NAJNOVIJE</div>
+    		<div class="posts">
+	    		<?php 
+	    			$args = array( 'posts_per_page' => 4, 'order'=> 'DESC', 'orderby' => 'post_date' );
+					$postslist = get_posts( $args );
+					foreach ($postslist as $post){
+	    				setup_postdata($post);
+	    				get_template_part( 'loop', 'sidebarpost' );
+	    			}
+	    			wp_reset_postdata();
+	    		?>
+	    	</div>
     	</div>
-    	<div class="popular collapsed">
-    		<?php
-    			query_posts('meta_key=post_views_count&orderby=meta_value_num&order=DESC');
-    			if (have_posts()) : while (have_posts()) : the_post(); ?>
-    			<li><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></li>
-    			<?php
-    			endwhile; endif;
-    			wp_reset_query();
-    		?>
+    	<div class="popular collapsed sidebar-news">
+    		<div class="title" onclick="changeSidebarNews('popular');">POPULARNO</div>
+    		<div class="posts">
+	    		<?php
+	    			$args = array('meta_key' => 'post_views_count', 'orderby' => 'meta_value_num', 'order' => 'DESC', 'posts_per_page' => 4);
+	    			$postslist = get_posts($args);
+					foreach ($postslist as $post){
+	    				setup_postdata($post);
+	    				get_template_part( 'loop', 'sidebarpost' );
+	    			}
+	    			wp_reset_postdata();
+	    		?>
+	    	</div>
     	</div>
-    	<div class="related expanded"></div>
+    	<div class="related expanded sidebar-news">
+    		<div class="title" onclick="changeSidebarNews('related');">VEZANE VIJESTI</div>
+    		<div class="posts">
+	    		<?php    			
+	    			$args = array('posts_per_page' => 4, 'order' => 'DESC', 'tag' => array_shift(get_the_tags())->slug, 'post__not_in' => array($post->ID));
+	    			$postslist = get_posts( $args );
+					foreach ($postslist as $post){
+	    				setup_postdata($post);
+	    				get_template_part( 'loop', 'sidebarpost' );
+	    			}
+	    			wp_reset_postdata();
+	    		?>
+	    	</div>
+    	</div>
     </div>
+    </div><!-- .entry-content -->
+    <script type="text/javascript">
+    	function changeSidebarNews(type){
+			$('.sidebar-news.expanded').removeClass('expanded').addClass('collapsed');
+			$('.sidebar-news.' + type).removeClass('collapsed').addClass('expanded');
+		}
+    </script>
 	<div class="clear"></div>
 	<div class="tags_block"><?php echo the_tags('<span class="font-ubuntu tags_lbl">Tagovi:</span> <ul class="tags"><li>', '</li><li>', '</li></ul>'); ?></div>
 </article><!-- #post-<?php the_ID(); ?> -->

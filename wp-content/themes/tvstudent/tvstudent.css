@@ -251,7 +251,6 @@ img.highlight_image.active{
 .singular .entry-content, .singular footer.entry-meta, .singular #comments-title{
 	width: 685px;
 	margin:0;
-	margin-right:15px;
 	float:left;
 }
 .related-links-list
@@ -281,23 +280,55 @@ img.highlight_image.active{
 }
 .right_sidebar_wrapper{
 	float: left;
-	padding-top: 20px;
-	width: 236px;
-	background: blue;
+	width: 260px;	
+}
+.right_sidebar_wrapper .newest{
+	background-color: #ee7070;
 	padding:12px;
+}
+.right_sidebar_wrapper .popular{
+	background-color: #97c127;
+	padding:12px;
+}
+.right_sidebar_wrapper .related{
+	background-color: #74d0d8;
+	padding:12px;
+}
+.right_sidebar_wrapper .collapsed .posts{
+	display: none;
+}
+.right_sidebar_wrapper .expanded .posts{
+	display: block;
+}
+.right_sidebar_wrapper .title {
+	font-size: 18px;
+	color: #fff;
+	cursor: pointer;
+}
+.right_sidebar_wrapper .title a:hover{
+	text-decoration: none;
+}
+.right_sidebar_wrapper .expanded .title{
+	padding-bottom: 12px;
 }
 .sidebar_post img{
 	border:none;
-	width: 86px;
+	width: 86px;	
 }
 .sidebar_post a.sidebar-thumb{
 	float: left;
+}
+.sidebar_post a.sidebar-thumb img{
+	-webkit-border-radius:0px;
+	-moz-border-radius:0px;
+	border-radius: 0px;
 }
 .sidebar_post .newest_post_title{
 	float: left;
 	margin-left: 10px;
 	width: 139px;
 	overflow: hidden;
+	height: 60px;	
 }
 .sidebar_post .newest_post_title a{
 	font-size: 16px;

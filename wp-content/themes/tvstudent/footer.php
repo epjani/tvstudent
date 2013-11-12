@@ -62,6 +62,7 @@
 			change_highlighted_news(__current_highlight_index+1);
 		},7000);
 	}
+		
 </script>
 </body>
 </html>
